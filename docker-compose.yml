@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  mongodb:
+    image: mongo
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=root
+    - MONGO_INITDB_ROOT_PASSWORD=MELI123
+    ports:
+    - 27017:27017
+    volumes:
+    - /Users/diogo.santos/Documents/CURSOS/4Linux/Challenge_Meli/infra/mongodb:/data/db
+
+  app:
+    image: santosdiogo/meli-app
+    links:
+    - mongodb
+
+  rest-api:
+    image: santosdiogo/meli-rest-api
+    links:
+    - mongodb
+    ports:
+    - 5000:5000
