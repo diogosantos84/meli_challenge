@@ -11,19 +11,19 @@ services:
     ports:
     - 27017:27017
     volumes:
-    - /Users/diogo.santos/Documents/NETSHOES/meli_challenge/mongodb1:/data/db
+    - /mongodb:/data/db
     - ./mongodb/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+
   app:
-    build: .
-    image: meli-app
+    image: santosdiogo/meli-app
     container_name: meli-app
     links:
     - mongodb
-#  rest-api:
-#    build: ./rest-api
-#    image: meli-rest-api
-#    container_name: meli-rest-api
-#    links:
-#    - mongodb
-#    ports:
-#    - 5000:5000
+
+  rest-api:
+    image: santosdiogo/meli-rest-api
+    container_name: meli-rest-api
+    links:
+    - mongodb
+    ports:
+    - 5000:5000
