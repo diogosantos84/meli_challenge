@@ -11,7 +11,7 @@ app.config['MONGO_URI'] = 'mongodb://meli_challenge:MELI123@mongodb:27017/meli_c
 app.config['MONGO_DBNAME'] = "meli_challenge"
 mongo = PyMongo(app)
 
-#Executa 
+#Executa a busca no MongoDB
 class Search(Resource):
     def get(self):
         mongodb = mongo.db.meli_challenge
@@ -26,7 +26,7 @@ class Search(Resource):
             output.append({'quantidade' : q['quantidade']})
             return {'quantidade': output}
 
-api.add_resource(search, '/search')
+api.add_resource(Search, '/search')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)

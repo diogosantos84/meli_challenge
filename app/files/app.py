@@ -6,7 +6,7 @@ client = MongoClient("mongodb://meli_challenge:MELI123@mongodb:27017/meli_challe
 db = client['meli_challenge']
 
 #Busca arquivos *.txt no diretório
-os.chdir("coleccion_2020")
+os.chdir("coleccion_2021")
 for file in glob.glob("*.txt"):
     frequency = {}
 
@@ -17,7 +17,7 @@ for file in glob.glob("*.txt"):
     text = document_text.read().lower()
 
     #Analisa as palavras encontradas
-    words = re.findall(r'\b[a-z]\b', text)
+    words = re.findall(r'\b[a-z]{1,30}\b', text)
 
     #Calcula a frequencia em que cada palavra aparece no arquivo
     for word in words:

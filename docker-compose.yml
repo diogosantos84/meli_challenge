@@ -3,22 +3,27 @@ version: '3'
 services:
   mongodb:
     image: mongo
+    container_name: mongodb
     environment:
+    - MONGO_INITDB_DATABASE=meli_challenge
     - MONGO_INITDB_ROOT_USERNAME=root
     - MONGO_INITDB_ROOT_PASSWORD=MELI123
     ports:
     - 27017:27017
     volumes:
-    - /Users/diogo.santos/Documents/CURSOS/4Linux/Challenge_Meli/infra/mongodb:/data/db
-
+    - /Users/diogo.santos/Documents/NETSHOES/meli_challenge/mongodb1:/data/db
+    - ./mongodb/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
   app:
-    image: santosdiogo/meli-app
+    build: .
+    image: meli-app
+    container_name: meli-app
     links:
     - mongodb
-
-  rest-api:
-    image: santosdiogo/meli-rest-api
-    links:
-    - mongodb
-    ports:
-    - 5000:5000
+#  rest-api:
+#    build: ./rest-api
+#    image: meli-rest-api
+#    container_name: meli-rest-api
+#    links:
+#    - mongodb
+#    ports:
+#    - 5000:5000
